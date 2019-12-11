@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.platform.dao.invest.IInvestnewIndustryDao">
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.platform.model.invest.InvestnewIndustryModel">
+    <constructor>
+      <idArg column="index_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="index_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="abc_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sec_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sec_fname" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sec_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="synonym" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    index_uni_code, index_code, abc_code, sec_name, sec_fname, sec_uni_code, synonym
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_industry
+    where index_uni_code = #{index_uni_code,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_industry
+    where index_uni_code = #{index_uni_code,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewIndustryModel">
+    insert into investnew_industry (index_uni_code, index_code, abc_code, 
+      sec_name, sec_fname, sec_uni_code, 
+      synonym)
+    values (#{index_uni_code,jdbcType=BIGINT}, #{index_code,jdbcType=VARCHAR}, #{abc_code,jdbcType=VARCHAR}, 
+      #{sec_name,jdbcType=VARCHAR}, #{sec_fname,jdbcType=VARCHAR}, #{sec_uni_code,jdbcType=BIGINT}, 
+      #{synonym,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewIndustryModel">
+    insert into investnew_industry
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="index_uni_code != null">
+        index_uni_code,
+      </if>
+      <if test="index_code != null">
+        index_code,
+      </if>
+      <if test="abc_code != null">
+        abc_code,
+      </if>
+      <if test="sec_name != null">
+        sec_name,
+      </if>
+      <if test="sec_fname != null">
+        sec_fname,
+      </if>
+      <if test="sec_uni_code != null">
+        sec_uni_code,
+      </if>
+      <if test="synonym != null">
+        synonym,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="index_uni_code != null">
+        #{index_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="index_code != null">
+        #{index_code,jdbcType=VARCHAR},
+      </if>
+      <if test="abc_code != null">
+        #{abc_code,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_name != null">
+        #{sec_name,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_fname != null">
+        #{sec_fname,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_uni_code != null">
+        #{sec_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="synonym != null">
+        #{synonym,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewIndustryModel">
+    update investnew_industry
+    <set>
+      <if test="index_code != null">
+        index_code = #{index_code,jdbcType=VARCHAR},
+      </if>
+      <if test="abc_code != null">
+        abc_code = #{abc_code,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_name != null">
+        sec_name = #{sec_name,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_fname != null">
+        sec_fname = #{sec_fname,jdbcType=VARCHAR},
+      </if>
+      <if test="sec_uni_code != null">
+        sec_uni_code = #{sec_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="synonym != null">
+        synonym = #{synonym,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where index_uni_code = #{index_uni_code,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewIndustryModel">
+    update investnew_industry
+    set index_code = #{index_code,jdbcType=VARCHAR},
+      abc_code = #{abc_code,jdbcType=VARCHAR},
+      sec_name = #{sec_name,jdbcType=VARCHAR},
+      sec_fname = #{sec_fname,jdbcType=VARCHAR},
+      sec_uni_code = #{sec_uni_code,jdbcType=BIGINT},
+      synonym = #{synonym,jdbcType=VARCHAR}
+    where index_uni_code = #{index_uni_code,jdbcType=BIGINT}
+  </update>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from investnew_industry
+  </select>
+</mapper>

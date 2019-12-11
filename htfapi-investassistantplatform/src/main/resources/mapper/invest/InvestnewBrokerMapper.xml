@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.platform.dao.invest.IInvestnewBrokerDao">
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    <constructor>
+      <idArg column="org_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="org_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="org_sname" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    <constructor>
+      <idArg column="org_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="org_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="org_sname" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="synonym" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    org_uni_code, org_name, org_sname
+  </sql>
+  <sql id="Blob_Column_List">
+    synonym
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_broker
+    where org_uni_code = #{org_uni_code,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_broker
+    where org_uni_code = #{org_uni_code,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    <selectKey keyProperty="org_uni_code" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_broker (org_uni_code, org_name, org_sname,
+    synonym)
+    values (#{org_uni_code,jdbcType=BIGINT}, #{org_name,jdbcType=VARCHAR}, #{org_sname,jdbcType=VARCHAR},
+    #{synonym,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    <selectKey keyProperty="org_uni_code" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_broker
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      org_uni_code,
+      <if test="org_name != null">
+        org_name,
+      </if>
+      <if test="org_sname != null">
+        org_sname,
+      </if>
+      <if test="synonym != null">
+        synonym,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{org_uni_code,jdbcType=BIGINT},
+      <if test="org_name != null">
+        #{org_name,jdbcType=VARCHAR},
+      </if>
+      <if test="org_sname != null">
+        #{org_sname,jdbcType=VARCHAR},
+      </if>
+      <if test="synonym != null">
+        #{synonym,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    update investnew_broker
+    <set>
+      <if test="org_name != null">
+        org_name = #{org_name,jdbcType=VARCHAR},
+      </if>
+      <if test="org_sname != null">
+        org_sname = #{org_sname,jdbcType=VARCHAR},
+      </if>
+      <if test="synonym != null">
+        synonym = #{synonym,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where org_uni_code = #{org_uni_code,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    update investnew_broker
+    set org_name = #{org_name,jdbcType=VARCHAR},
+      org_sname = #{org_sname,jdbcType=VARCHAR},
+      synonym = #{synonym,jdbcType=LONGVARCHAR}
+    where org_uni_code = #{org_uni_code,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewBrokerModel">
+    update investnew_broker
+    set org_name = #{org_name,jdbcType=VARCHAR},
+      org_sname = #{org_sname,jdbcType=VARCHAR}
+    where org_uni_code = #{org_uni_code,jdbcType=BIGINT}
+  </update>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from investnew_broker
+  </select>
+</mapper>

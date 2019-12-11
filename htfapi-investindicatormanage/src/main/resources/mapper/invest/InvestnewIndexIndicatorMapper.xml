@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.InvestnewIndexIndicatorMapper" >
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicator" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="indicator_name" property="indicatorName" jdbcType="VARCHAR" />
+    <result column="indicator_unit" property="indicatorUnit" jdbcType="VARCHAR" />
+    <result column="indicator_frequency" property="indicatorFrequency" jdbcType="VARCHAR" />
+    <result column="data_source" property="dataSource" jdbcType="VARCHAR" />
+    <result column="is_auto" property="isAuto" jdbcType="INTEGER" />
+    <result column="indicator_type" property="indicatorType" jdbcType="INTEGER" />
+    <result column="wind_indicator_code" property="windIndicatorCode" jdbcType="VARCHAR" />
+    <result column="wind_indicator_name" property="windIndicatorName" jdbcType="VARCHAR" />
+    <result column="update_status" property="updateStatus" jdbcType="CHAR" />
+    <result column="notice_status" property="noticeStatus" jdbcType="CHAR" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="push_time" property="pushTime" jdbcType="TIMESTAMP" />
+    <result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
+    <result column="query_flag" property="queryFlag" jdbcType="CHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, indicator_name, indicator_unit, indicator_frequency, data_source, is_auto, indicator_type,
+    wind_indicator_code, wind_indicator_name, update_status, notice_status, start_time,
+    end_time, push_time, comment_time, query_flag, creator, editor, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from investnew_index_indicator
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_index_indicator
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicator" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator (indicator_name, indicator_unit, indicator_frequency,
+      data_source, is_auto, indicator_type,
+      wind_indicator_code, wind_indicator_name, update_status,
+      notice_status, start_time, end_time,
+      push_time, comment_time, query_flag,
+      creator, editor, create_time,
+      update_time)
+    values (#{indicatorName,jdbcType=VARCHAR}, #{indicatorUnit,jdbcType=VARCHAR}, #{indicatorFrequency,jdbcType=VARCHAR},
+      #{dataSource,jdbcType=VARCHAR}, #{isAuto,jdbcType=INTEGER}, #{indicatorType,jdbcType=INTEGER},
+      #{windIndicatorCode,jdbcType=VARCHAR}, #{windIndicatorName,jdbcType=VARCHAR}, #{updateStatus,jdbcType=CHAR},
+      #{noticeStatus,jdbcType=CHAR}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE},
+      #{pushTime,jdbcType=TIMESTAMP}, #{commentTime,jdbcType=TIMESTAMP}, #{queryFlag,jdbcType=CHAR},
+      #{creator,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicator" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indicatorName != null" >
+        indicator_name,
+      </if>
+      <if test="indicatorUnit != null" >
+        indicator_unit,
+      </if>
+      <if test="indicatorFrequency != null" >
+        indicator_frequency,
+      </if>
+      <if test="dataSource != null" >
+        data_source,
+      </if>
+      <if test="isAuto != null" >
+        is_auto,
+      </if>
+      <if test="indicatorType != null" >
+        indicator_type,
+      </if>
+      <if test="windIndicatorCode != null" >
+        wind_indicator_code,
+      </if>
+      <if test="windIndicatorName != null" >
+        wind_indicator_name,
+      </if>
+      <if test="updateStatus != null" >
+        update_status,
+      </if>
+      <if test="noticeStatus != null" >
+        notice_status,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+      <if test="queryFlag != null" >
+        query_flag,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="editor != null" >
+        editor,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indicatorName != null" >
+        #{indicatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="indicatorUnit != null" >
+        #{indicatorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="indicatorFrequency != null" >
+        #{indicatorFrequency,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        #{dataSource,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuto != null" >
+        #{isAuto,jdbcType=INTEGER},
+      </if>
+      <if test="indicatorType != null" >
+        #{indicatorType,jdbcType=INTEGER},
+      </if>
+      <if test="windIndicatorCode != null" >
+        #{windIndicatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="windIndicatorName != null" >
+        #{windIndicatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateStatus != null" >
+        #{updateStatus,jdbcType=CHAR},
+      </if>
+      <if test="noticeStatus != null" >
+        #{noticeStatus,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentTime != null" >
+        #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="queryFlag != null" >
+        #{queryFlag,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicator" >
+    update investnew_index_indicator
+    <set >
+      <if test="indicatorName != null" >
+        indicator_name = #{indicatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="indicatorUnit != null" >
+        indicator_unit = #{indicatorUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="indicatorFrequency != null" >
+        indicator_frequency = #{indicatorFrequency,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuto != null" >
+        is_auto = #{isAuto,jdbcType=INTEGER},
+      </if>
+      <if test="indicatorType != null" >
+        indicator_type = #{indicatorType,jdbcType=INTEGER},
+      </if>
+      <if test="windIndicatorCode != null" >
+        wind_indicator_code = #{windIndicatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="windIndicatorName != null" >
+        wind_indicator_name = #{windIndicatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateStatus != null" >
+        update_status = #{updateStatus,jdbcType=CHAR},
+      </if>
+      <if test="noticeStatus != null" >
+        notice_status = #{noticeStatus,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentTime != null" >
+        comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="queryFlag != null" >
+        query_flag = #{queryFlag,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicator" >
+    update investnew_index_indicator
+    set indicator_name = #{indicatorName,jdbcType=VARCHAR},
+      indicator_unit = #{indicatorUnit,jdbcType=VARCHAR},
+      indicator_frequency = #{indicatorFrequency,jdbcType=VARCHAR},
+      data_source = #{dataSource,jdbcType=VARCHAR},
+      is_auto = #{isAuto,jdbcType=INTEGER},
+      indicator_type = #{indicatorType,jdbcType=INTEGER},
+      wind_indicator_code = #{windIndicatorCode,jdbcType=VARCHAR},
+      wind_indicator_name = #{windIndicatorName,jdbcType=VARCHAR},
+      update_status = #{updateStatus,jdbcType=CHAR},
+      notice_status = #{noticeStatus,jdbcType=CHAR},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      push_time = #{pushTime,jdbcType=TIMESTAMP},
+      comment_time = #{commentTime,jdbcType=TIMESTAMP},
+      query_flag = #{queryFlag,jdbcType=CHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectMyManageIndicator" resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+    select
+      t1.id indicatorId,
+      t1.indicator_name indicatorName,
+      t1.indicator_type indicatorType
+    from
+      investnew_index_indicator t1
+    left join investnew_index_indicator_stock t2 on t1.id = t2.indicator_id
+    inner join investnew_index_indicator_analyst t3 on t1.id = t3.indicator_id
+    left join investnew_index_indicator_industry t4 on t1.id = t4.indicator_id
+    where
+      t3.analyst_id = #{analystId}
+    and t1.indicator_type = #{indicatorType}
+    <if test="keyword != null and keyword != ''">
+      and (t1.indicator_name like "%"#{keyword}"%"
+      or t2.stock_code like "%"#{keyword}"%"
+      or t2.stock_name like "%"#{keyword}"%"
+      or t4.first_industry_name like "%"#{keyword}"%"
+      or t4.second_industry_name like "%"#{keyword}"%")
+    </if>
+    <if test="isAuto != null and queryFlag != null and queryFlag != ''">
+      and t1.is_auto = #{isAuto}
+      and t1.query_flag = #{queryFlag}
+    </if>
+    group by t1.id, t1.indicator_name, t1.push_time, t1.comment_time
+    order by t1.push_time desc, t1.comment_time desc, t1.id desc
+  </select>
+
+  <select id="selectNoAutoIndicatorList" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_index_indicator
+    where
+      is_auto = 2
+    and indicator_type = 1
+    order by id asc
+  </select>
+
+  <select id="selectIdListByAutoAndQueryFlag" resultType="long">
+    select
+      distinct t1.id
+    from
+      investnew_index_indicator t1
+    inner join investnew_index_indicator_analyst t2 on t1.id = t2.indicator_id
+    where
+      t2.analyst_id = #{analystId}
+    and t1.is_auto = #{isAuto}
+    and t1.query_flag = #{queryFlag}
+    and t1.indicator_type = #{indicatorType}
+  </select>
+
+  <select id="selectIndicatorIdByIdListAndType" resultType="long">
+    select
+      id
+    from
+      investnew_index_indicator
+    where
+      id in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    and indicator_type = #{indicatorType}
+  </select>
+
+  <select id="selectIndicatorSummaryByIdList" resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+    select
+      id indicatorId,
+      indicator_name indicatorName,
+      indicator_type indicatorType
+    from
+      investnew_index_indicator
+    where
+      id in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+  </select>
+
+  <select id="selectCountByIdListAndType" resultType="int">
+    select
+      count(*)
+    from
+      investnew_index_indicator
+    where
+      id in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+          #{item}
+      </foreach>
+    and indicator_type = #{indicatorType}
+  </select>
+
+  <select id="selectByAnalystIdAndType" resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.QueryAllBasicIndicatorInfoDto">
+    select
+      t1.id,
+      t1.indicator_name indicatorName,
+      t1.indicator_unit indicatorUnit,
+      t1.indicator_frequency indicatorFrequency
+    from
+      investnew_index_indicator t1
+    inner join investnew_index_indicator_analyst t2 on t1.id = t2.indicator_id
+    where
+      t2.analyst_id = #{analystId}
+    and t1.indicator_type = #{indicatorType}
+  </select>
+
+  <select id="selectAllIndustryIndicatorByType" parameterType="int" resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.QueryAllBasicIndicatorInfoDto">
+    select
+      t1.id,
+      t1.indicator_name indicatorName,
+      t1.indicator_unit indicatorUnit,
+      t1.indicator_frequency indicatorFrequency,
+      t2.first_industry_name firstIndustryName
+    from
+      investnew_index_indicator t1
+    inner join investnew_index_indicator_industry t2 on t1.id = t2.indicator_id
+    where
+      t1.indicator_type = #{indicatorType}
+  </select>
+
+  <select id="selectByIndicatorTypeAndKeyword" resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.QueryAllBasicIndicatorInfoDto">
+    select
+      t1.id,
+      t1.indicator_name indicatorName,
+      t1.indicator_unit indicatorUnit,
+      t1.indicator_frequency indicatorFrequency
+    from
+      investnew_index_indicator t1
+    left join investnew_index_indicator_analyst t2 on t1.id = t2.indicator_id
+    left join investnew_index_indicator_industry t3 on t1.id = t3.indicator_id
+    left join investnew_index_indicator_stock t4 on t1.id = t4.indicator_id
+    where
+      t1.indicator_type = #{indicatorType}
+    and (
+      t1.indicator_name like "%"#{keyword}"%"
+      or t2.analyst_name like "%"#{keyword}"%"
+      or t3.first_industry_name like "%"#{keyword}"%"
+      or t3.second_industry_name like "%"#{keyword}"%"
+      or t4.stock_code like "%"#{keyword}"%"
+      or t4.stock_name like "%"#{keyword}"%"
+    )
+    group by t1.id, t1.indicator_name, t1.indicator_unit, t1.indicator_frequency
+  </select>
+</mapper>

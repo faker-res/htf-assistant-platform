@@ -1,0 +1,46 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.50.16.124:8001/eureka
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: abcin_sys_rw_pe
+      password: 68hjHEDOjPFb
+      url: jdbc:mysql://100.114.151.37:6633/abc_investnew?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
+      timeoutSeconds: 30
+      initSize: 5
+      minIdle: 1
+      maxActive: 30
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: select 1
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      minEvictableIdleTimeMillis: 300000
+      maxEvictableIdleTimeMillis: 1200000
+      keepAlive: true
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    host: 10.81.88.218
+    port: 8813
+    password: c1YAbuAZjN7o
+    database: 1
+    timeout: 1000
+
+feign:
+  client:
+    platform:
+      name: service-assistant-platform
+      url: http://127.0.0.1:8003
+
+async:
+  corePoolSize: 5
+  maxPoolSize: 10
+  queueCapacity: 5

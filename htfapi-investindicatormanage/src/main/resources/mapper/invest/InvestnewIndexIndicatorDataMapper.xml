@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.InvestnewIndexIndicatorDataMapper" >
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorData" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="indicator_id" property="indicatorId" jdbcType="BIGINT" />
+    <result column="indicator_time" property="indicatorTime" jdbcType="DATE" />
+    <result column="indicator_data" property="indicatorData" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_auto" property="isAuto" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, indicator_id, indicator_time, indicator_data, status, is_auto, creator, editor,
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_index_indicator_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_index_indicator_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorData" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_data (indicator_id, indicator_time, indicator_data,
+      status, is_auto, creator,
+      editor, create_time, update_time
+      )
+    values (#{indicatorId,jdbcType=BIGINT}, #{indicatorTime,jdbcType=DATE}, #{indicatorData,jdbcType=DECIMAL},
+      #{status,jdbcType=INTEGER}, #{isAuto,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR},
+      #{editor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorData" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indicatorId != null" >
+        indicator_id,
+      </if>
+      <if test="indicatorTime != null" >
+        indicator_time,
+      </if>
+      <if test="indicatorData != null" >
+        indicator_data,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isAuto != null" >
+        is_auto,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="editor != null" >
+        editor,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indicatorId != null" >
+        #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="indicatorTime != null" >
+        #{indicatorTime,jdbcType=DATE},
+      </if>
+      <if test="indicatorData != null" >
+        #{indicatorData,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isAuto != null" >
+        #{isAuto,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorData" >
+    update investnew_index_indicator_data
+    <set >
+      <if test="indicatorId != null" >
+        indicator_id = #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="indicatorTime != null" >
+        indicator_time = #{indicatorTime,jdbcType=DATE},
+      </if>
+      <if test="indicatorData != null" >
+        indicator_data = #{indicatorData,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isAuto != null" >
+        is_auto = #{isAuto,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorData" >
+    update investnew_index_indicator_data
+    set indicator_id = #{indicatorId,jdbcType=BIGINT},
+      indicator_time = #{indicatorTime,jdbcType=DATE},
+      indicator_data = #{indicatorData,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      is_auto = #{isAuto,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertBatch">
+    insert into investnew_index_indicator_data
+    (
+      indicator_id,
+      indicator_time,
+      indicator_data,
+      status,
+      is_auto,
+      creator,
+      editor
+    )
+    values
+    <foreach collection="list" item="item" open="" separator="," close="">
+      (
+        #{item.indicatorId},
+        #{item.indicatorTime},
+        #{item.indicatorData},
+        #{item.status},
+        #{item.isAuto},
+        #{item.creator},
+        #{item.editor}
+      )
+    </foreach>
+    on duplicate key update
+      indicator_data = values(indicator_data),
+      status = values(status),
+      is_auto = values(is_auto),
+      editor = values(editor)
+  </insert>
+
+  <select id="selectByIndicatorIdAndStartTimeAndEndTime" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_index_indicator_data
+    where
+      indicator_id = #{indicatorId}
+    and indicator_time between #{starTime} and #{endTime}
+    limit 1
+  </select>
+
+  <select id="getCountByIndicatorIdAndStatus" resultType="int">
+    select
+      count(*)
+    from
+      investnew_index_indicator_data
+    where
+      indicator_id = #{indicatorId}
+    and status = #{status}
+  </select>
+
+  <select id="selectUpdatedIndicatorData" resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.QueryUpdatedIndicatorDataResponse">
+    select
+      t1.id indicatorDataId,
+      t1.indicator_id indicatorId,
+      t1.indicator_time indicatorTime,
+      t1.indicator_data indicatorData,
+      t2.indicator_name indicatorName,
+      t2.indicator_unit indicatorUnit,
+      t2.indicator_frequency indicatorFrequency,
+      t1.status
+    from
+      (
+        select
+          id,
+          indicator_id,
+          indicator_time,
+          indicator_data,
+          status,
+          create_time
+        from
+          investnew_index_indicator_data
+        where
+          indicator_id in
+          <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+          </foreach>
+          and is_auto = 2
+      ) t1
+      inner join investnew_index_indicator t2 on t1.indicator_id = t2.id
+      order by t2.create_time asc
+      limit #{offset}, #{limit}
+  </select>
+
+  <select resultMap="BaseResultMap" id="queryIndicatorDatas">
+    select  <include refid="Base_Column_List" />
+    from investnew_index_indicator_data
+    where indicator_id=#{indicatorId}
+  </select>
+
+  <select id="selectRecentTimeByIndicatorIdAndType" resultType="java.util.Date">
+    select
+      max(indicator_time)
+    from
+      investnew_index_indicator_data
+    where
+      indicator_id = #{indicatorId}
+    and indicator_data is not null
+    and status in (0,1)
+  </select>
+  
+   <update id="batchConfirmData">
+     update investnew_index_indicator_data set status=#{status} where indicator_id=#{indicatorId}
+  </update>
+
+  <select id="selectByIndicatorIdAndTime" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      investnew_index_indicator_data
+    where
+      indicator_id = #{indicatorId}
+    <if test="starTime != null">
+      and indicator_time &gt;= #{starTime}
+    </if>
+    <if test="endTime != null">
+      and indicator_time &lt;= #{endTime}
+    </if>
+    <if test="statusList != null and statusList.size > 0">
+      and status in
+      <foreach collection="statusList" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by indicator_time asc
+  </select>
+
+  <update id="updateStatusByIndicatorIdListAndStatus">
+    update investnew_index_indicator_data
+    set status = #{updateStatus},
+      editor = #{editor}
+    where
+      indicator_id in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    and status = #{currentStatus}
+  </update>
+
+  <select id="selectConfirmedIndicatorValue" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    investnew_index_indicator_data
+    where
+    status = 1
+    and indicator_id = #{indicatorId}
+    <if test="startTime != null">
+      and indicator_time &gt;= #{startTime}
+    </if>
+    <if test="endTime != null">
+      and indicator_time &lt;= #{endTime}
+    </if>
+    order by indicator_time
+  </select>
+</mapper>

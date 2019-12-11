@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.platform.dao.invest.IInvestnewRoleDao">
+    <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.platform.model.invest.InvestnewRoleModel">
+        <constructor>
+            <idArg column="role_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="company_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="status" javaType="java.lang.String" jdbcType="CHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    role_id, company_id, name, description, status
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from investnew_role
+        where role_id = #{role_id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from investnew_role
+    where role_id = #{role_id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewRoleModel">
+    insert into investnew_role (role_id, company_id, name,
+      description, status)
+    values (#{role_id,jdbcType=INTEGER}, #{company_id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewRoleModel">
+        insert into investnew_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="role_id != null">
+                role_id,
+            </if>
+            <if test="company_id != null">
+                company_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="role_id != null">
+                #{role_id,jdbcType=INTEGER},
+            </if>
+            <if test="company_id != null">
+                #{company_id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewRoleModel">
+        update investnew_role
+        <set>
+            <if test="company_id != null">
+                company_id = #{company_id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+        </set>
+        where role_id = #{role_id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewRoleModel">
+    update investnew_role
+    set company_id = #{company_id,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR}
+    where role_id = #{role_id,jdbcType=INTEGER}
+  </update>
+    <select id="selectByCompanyId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from investnew_role
+        where company_id = #{companyId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from investnew_role
+        where company_id = #{companyId,jdbcType=BIGINT}
+        and name = #{name,jdbcType=VARCHAR} limit 1
+    </select>
+    <select id="selectByRoleIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from investnew_role
+        where role_id in
+        <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+            #{item,jdbcType=INTEGER}
+        </foreach>
+    </select>
+    <insert id="insertSelectiveSelectId" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewRoleModel">
+        <selectKey resultType="java.lang.Integer" keyProperty="role_id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into investnew_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="role_id != null">
+                role_id,
+            </if>
+            <if test="company_id != null">
+                company_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="role_id != null">
+                #{role_id,jdbcType=INTEGER},
+            </if>
+            <if test="company_id != null">
+                #{company_id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

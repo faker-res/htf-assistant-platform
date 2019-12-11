@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.platform.dao.invest.IInvestnewMessageDao">
+    <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="sender_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="receiver_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="broadcast_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="is_read" javaType="java.lang.Boolean" jdbcType="BIT" />
+            <arg column="is_revoke" javaType="java.lang.Boolean" jdbcType="BIT" />
+            <arg column="read_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="object_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="object_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="object_pid" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="sender_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="receiver_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="broadcast_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="is_read" javaType="java.lang.Boolean" jdbcType="BIT" />
+            <arg column="is_revoke" javaType="java.lang.Boolean" jdbcType="BIT" />
+            <arg column="read_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="object_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="object_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="object_pid" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="message" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, sender_user_id, receiver_user_id, broadcast_id, is_read, is_revoke, read_time,
+    object_id, object_type, object_pid, create_time, update_time
+  </sql>
+    <sql id="Blob_Column_List">
+    message
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from investnew_message
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into investnew_message (sender_user_id, receiver_user_id,
+        broadcast_id, is_read, is_revoke,
+        read_time, object_id, object_type,
+        object_pid, create_time, update_time,
+        message)
+        values (#{sender_user_id,jdbcType=VARCHAR}, #{receiver_user_id,jdbcType=VARCHAR},
+        #{broadcast_id,jdbcType=BIGINT}, #{is_read,jdbcType=BIT}, #{is_revoke,jdbcType=BIT},
+        #{read_time,jdbcType=TIMESTAMP}, #{object_id,jdbcType=VARCHAR}, #{object_type,jdbcType=VARCHAR},
+        #{object_pid,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP},
+        #{message,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into investnew_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sender_user_id != null">
+                sender_user_id,
+            </if>
+            <if test="receiver_user_id != null">
+                receiver_user_id,
+            </if>
+            <if test="broadcast_id != null">
+                broadcast_id,
+            </if>
+            <if test="is_read != null">
+                is_read,
+            </if>
+            <if test="is_revoke != null">
+                is_revoke,
+            </if>
+            <if test="read_time != null">
+                read_time,
+            </if>
+            <if test="object_id != null">
+                object_id,
+            </if>
+            <if test="object_type != null">
+                object_type,
+            </if>
+            <if test="object_pid != null">
+                object_pid,
+            </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="update_time != null">
+                update_time,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sender_user_id != null">
+                #{sender_user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="receiver_user_id != null">
+                #{receiver_user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="broadcast_id != null">
+                #{broadcast_id,jdbcType=BIGINT},
+            </if>
+            <if test="is_read != null">
+                #{is_read,jdbcType=BIT},
+            </if>
+            <if test="is_revoke != null">
+                #{is_revoke,jdbcType=BIT},
+            </if>
+            <if test="read_time != null">
+                #{read_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="object_id != null">
+                #{object_id,jdbcType=VARCHAR},
+            </if>
+            <if test="object_type != null">
+                #{object_type,jdbcType=VARCHAR},
+            </if>
+            <if test="object_pid != null">
+                #{object_pid,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+        update investnew_message
+        <set>
+            <if test="sender_user_id != null">
+                sender_user_id = #{sender_user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="receiver_user_id != null">
+                receiver_user_id = #{receiver_user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="broadcast_id != null">
+                broadcast_id = #{broadcast_id,jdbcType=BIGINT},
+            </if>
+            <if test="is_read != null">
+                is_read = #{is_read,jdbcType=BIT},
+            </if>
+            <if test="is_revoke != null">
+                is_revoke = #{is_revoke,jdbcType=BIT},
+            </if>
+            <if test="read_time != null">
+                read_time = #{read_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="object_id != null">
+                object_id = #{object_id,jdbcType=VARCHAR},
+            </if>
+            <if test="object_type != null">
+                object_type = #{object_type,jdbcType=VARCHAR},
+            </if>
+            <if test="object_pid != null">
+                object_pid = #{object_pid,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="message != null">
+                message = #{message,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+    update investnew_message
+    set sender_user_id = #{sender_user_id,jdbcType=VARCHAR},
+      receiver_user_id = #{receiver_user_id,jdbcType=VARCHAR},
+      broadcast_id = #{broadcast_id,jdbcType=BIGINT},
+      is_read = #{is_read,jdbcType=BIT},
+      is_revoke = #{is_revoke,jdbcType=BIT},
+      read_time = #{read_time,jdbcType=TIMESTAMP},
+      object_id = #{object_id,jdbcType=VARCHAR},
+      object_type = #{object_type,jdbcType=VARCHAR},
+      object_pid = #{object_pid,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewMessageModel">
+    update investnew_message
+    set sender_user_id = #{sender_user_id,jdbcType=VARCHAR},
+      receiver_user_id = #{receiver_user_id,jdbcType=VARCHAR},
+      broadcast_id = #{broadcast_id,jdbcType=BIGINT},
+      is_read = #{is_read,jdbcType=BIT},
+      is_revoke = #{is_revoke,jdbcType=BIT},
+      read_time = #{read_time,jdbcType=TIMESTAMP},
+      object_id = #{object_id,jdbcType=VARCHAR},
+      object_type = #{object_type,jdbcType=VARCHAR},
+      object_pid = #{object_pid,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByReceiverUserId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from investnew_message
+        where is_revoke=0
+        order by create_time desc
+    </select>
+    <select id="countByReceiverUserIdUnread" resultType="java.lang.Integer">
+        select count(*) from investnew_message
+        where receiver_user_id = #{userId,jdbcType=VARCHAR}
+        and is_read=0
+        and is_revoke=0
+        and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+        <if test="objectType != null">
+            and object_type=#{objectType,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="selectByReceiverUserIdUnread" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from investnew_message
+        where receiver_user_id = #{userId,jdbcType=VARCHAR}
+        and is_read=0
+        and is_revoke=0
+        and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+        <if test="objectType != null">
+            and object_type=#{objectType,jdbcType=VARCHAR}
+        </if>
+        order by create_time desc
+        limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </select>
+    <select id="getLastBroadcastByReceiverUserId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from investnew_message
+        where receiver_user_id = #{userId,jdbcType=VARCHAR}
+        and not ISNULL(broadcast_id)
+        and is_revoke=0
+        order by broadcast_id desc
+        limit 1
+    </select>
+    <update id="setRevoke">
+    update investnew_message
+    set is_revoke=1
+    where broadcast_id = #{broadcastMessageId,jdbcType=BIGINT}
+  </update>
+    <update id="setReadByUserId">
+    update investnew_message
+    set is_read=1,read_time=now()
+    where receiver_user_id = #{userId,jdbcType=VARCHAR} and is_revoke=0
+  </update>
+    <update id="setReadByMessageIds">
+        update investnew_message
+        set is_read=1,read_time=now()
+        where id in
+        <foreach collection="messageIds" index="index" item="item" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>

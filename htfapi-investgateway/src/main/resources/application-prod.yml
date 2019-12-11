@@ -1,0 +1,15 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.26.12.163:8001/eureka,http://172.26.12.164:8001/eureka
+
+security:
+  cas:
+    service:
+      host: http://iram.htffund.com
+      logout: ${security.cas.service.host}/j_spring_cas_security_logout
+    server:
+      host: http://sso.htffund.com:8008/cas
+      login: ${security.cas.server.host}/login
+      logout: ${security.cas.server.host}/logout?service=${security.cas.service.host}

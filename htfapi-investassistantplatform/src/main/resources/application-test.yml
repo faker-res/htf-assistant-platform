@@ -1,0 +1,24 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.50.16.126:8001/eureka
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: htf_user_pre
+      password: Abc@Htf123456
+      url: jdbc:mysql://10.50.115.225:3306/assistant_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    invest:
+      host: 10.50.115.225
+      port: 6378
+      password:
+      database: 1
+      timeout: 1000

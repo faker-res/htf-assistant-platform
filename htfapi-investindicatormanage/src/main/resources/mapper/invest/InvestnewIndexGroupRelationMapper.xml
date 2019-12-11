@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.InvestnewIndexGroupRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="indicator_group_id" property="indicatorGroupId" jdbcType="BIGINT" />
+    <result column="indicator_id" property="indicatorId" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_select" property="isSelect" jdbcType="CHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation" extends="BaseResultMap" >
+    <result column="chart_setting" property="chartSetting" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, indicator_group_id, indicator_id, creator, editor, create_time, update_time,
+    is_select, is_delete
+  </sql>
+  <sql id="Blob_Column_List" >
+    chart_setting
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_index_group_relation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_index_group_relation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_group_relation (indicator_group_id, indicator_id, creator,
+      editor, create_time, update_time,
+      is_select, is_delete, chart_setting
+      )
+    values (#{indicatorGroupId,jdbcType=BIGINT}, #{indicatorId,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR},
+      #{editor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{isSelect,jdbcType=CHAR}, #{isDelete,jdbcType=CHAR}, #{chartSetting,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_group_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indicatorGroupId != null" >
+        indicator_group_id,
+      </if>
+      <if test="indicatorId != null" >
+        indicator_id,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="editor != null" >
+        editor,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isSelect != null" >
+        is_select,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="chartSetting != null" >
+        chart_setting,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indicatorGroupId != null" >
+        #{indicatorGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="indicatorId != null" >
+        #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSelect != null" >
+        #{isSelect,jdbcType=CHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="chartSetting != null" >
+        #{chartSetting,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation" >
+    update investnew_index_group_relation
+    <set >
+      <if test="indicatorGroupId != null" >
+        indicator_group_id = #{indicatorGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="indicatorId != null" >
+        indicator_id = #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSelect != null">
+        is_select = #{isSelect,jdbcType=CHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="chartSetting != null" >
+        chart_setting = #{chartSetting,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation" >
+    update investnew_index_group_relation
+    set indicator_group_id = #{indicatorGroupId,jdbcType=BIGINT},
+      indicator_id = #{indicatorId,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_select = #{isSelect,jdbcType=CHAR},
+      is_delete = #{isDelete,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexGroupRelation">
+    update investnew_index_group_relation
+    set indicator_group_id = #{indicatorGroupId,jdbcType=BIGINT},
+      indicator_id = #{indicatorId,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_select = #{isSelect,jdbcType=CHAR},
+      is_delete = #{isDelete,jdbcType=CHAR},
+      chart_setting = #{chartSetting,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectGroupIdListByIndicatorId" resultType="long">
+    select
+      indicator_group_id
+    from
+      investnew_index_group_relation
+    where
+      indicator_id = #{indicatorId}
+     and is_delete = '0'
+  </select>
+
+  <select id="selectIndicatorIdByGroupId" resultType="long">
+    select
+      indicator_id
+    from
+      investnew_index_group_relation
+    where
+      indicator_group_id = #{indicatorGroupId}
+    <if test="isDelete != null and isDelete != ''">
+      and is_delete = #{isDelete}
+    </if>
+  </select>
+
+  <select id="selectByGroupIdAndIndicatorId" resultMap="ResultMapWithBLOBs">
+    select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+    from
+      investnew_index_group_relation
+    where
+      indicator_group_id = #{indicatorGroupId}
+    and indicator_id = #{indicatorId}
+    and is_delete = '0'
+  </select>
+
+  <insert id="insertBatch">
+    insert ignore into investnew_index_group_relation
+    (
+      indicator_group_id,
+      indicator_id,
+      creator,
+      editor
+    )
+    values
+    <foreach collection="list" item="item" open="" separator="," close="">
+      (
+        #{item.indicatorGroupId},
+        #{item.indicatorId},
+        #{item.creator},
+        #{item.editor}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectIndicatorByGroupId" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from
+    investnew_index_group_relation
+    where
+    indicator_group_id = #{indicatorGroupId}
+    <if test="isDelete != null and isDelete != ''">
+      and is_delete = #{isDelete}
+    </if>
+    <if test="isSelect != null and isSelect != ''">
+    and is_select = #{isSelect}
+    </if>
+  </select>
+
+  <select id="selectByGroupIdAndIndicatorIdAndDeleteStatus" resultType="long">
+    select
+      indicator_id
+    from
+      investnew_index_group_relation
+    where
+      indicator_group_id = #{indicatorGroupId}
+     and indicator_id in
+     <foreach collection="list" item="item" open="(" separator="," close=")">
+       #{item}
+     </foreach>
+     and is_delete = #{isDelete}
+  </select>
+
+  <update id="updateDeleteStatusByGroupIdAndIndicatorId">
+    update investnew_index_group_relation
+    set is_delete = #{isDelete}
+    where indicator_group_id = #{indicatorGroupId} and indicator_id = #{indicatorId}
+  </update>
+</mapper>

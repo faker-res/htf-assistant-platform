@@ -1,0 +1,35 @@
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: register-center
+
+eureka:
+  environment: ${spring.profiles.active}
+  instance:
+    instanceId: ${spring.cloud.client.ipAddress}:${server.port} #默认值是${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}
+    hostname: ${spring.cloud.client.ipAddress}
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 5 #续约更新时间间隔（默认30秒）
+    leaseExpirationDurationInSeconds: 16 #续约到期时间（默认90秒）
+  server:
+    enableSelfPreservation: false #关闭自我保护
+    evictionIntervalTimerInMs: 5000 #清理无效节点的时间间隔
+    responseCacheUpdateIntervalMs: 5000 #把readWriteCacheMap的缓存更新到readOnlyCacheMap上的时间间隔，默认30s
+    responseCacheAutoExpirationInSeconds: 5 #readWriteCacheMap失效时间，默认180s
+    useReadOnlyResponseCache: false #不使用readOnlyCacheMap
+  client:
+    registerWithEureka: true #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true
+    fetchRegistry: true #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
+    registryFetchIntervalSeconds: 5 #间隔多久去拉取服务注册信息,默认为30秒
+#    useDnsForFetchingServiceUrls: true #开启DNS方式获取serviceUrl,默认为false
+#    eurekaServerDNSName: relinson.com #DNS域名,获取其他信息将以该域名为根域名
+#    region: region1 #当前应用所在区域,默认为us-east-1
+#    eurekaServerURLContext: eureka #eureka服务根目录
+#    eurekaServerPort: 8085 #服务所在端口
+#    preferSameZoneEureka: true #获取serviceUrl时候是否优先获取相同zone的列表(如果获取为空则获取所在region第一个zone),如果为false则优先获取不在相同zone的列表
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/

@@ -1,0 +1,26 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.26.12.163:8001/eureka,http://172.26.12.164:8001/eureka
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: htf_user_prod
+      password: ZT5KqgGkLsoo
+      url: jdbc:mysql://172.26.2.189:6633/assistant_platform?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
+      timeoutSeconds: 30
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    invest:
+      host: 172.26.2.84
+      port: 9001
+      password: 123456
+      database: 0
+      timeout: 1000
+#      masterName: mymaster #哨兵监听的master名称
+#      nodes: 172.26.2.84:9001,172.26.2.85:9001,172.26.2.86:9001 #哨兵监听的地址列表，多个以英文逗号分割

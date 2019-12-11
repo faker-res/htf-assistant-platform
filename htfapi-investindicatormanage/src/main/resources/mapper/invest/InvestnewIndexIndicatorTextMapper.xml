@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.InvestnewIndexIndicatorTextMapper">
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="indicator_id" property="indicatorId" jdbcType="BIGINT" />
+    <result column="indicator_time" property="indicatorTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText" extends="BaseResultMap" >
+    <result column="indicator_text_data" property="indicatorTextData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, indicator_id, indicator_time, creator, editor, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    indicator_text_data
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_index_indicator_text
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from investnew_index_indicator_text
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_text (indicator_id, indicator_time, creator, 
+      editor, create_time, update_time, 
+      indicator_text_data)
+    values (#{indicatorId,jdbcType=BIGINT}, #{indicatorTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{editor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{indicatorTextData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_text
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="indicatorId != null">
+        indicator_id,
+      </if>
+      <if test="indicatorTime != null">
+        indicator_time,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="editor != null">
+        editor,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="indicatorTextData != null">
+        indicator_text_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="indicatorId != null">
+        #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="indicatorTime != null">
+        #{indicatorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null">
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indicatorTextData != null">
+        #{indicatorTextData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText">
+    update investnew_index_indicator_text
+    <set>
+      <if test="indicatorId != null">
+        indicator_id = #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="indicatorTime != null">
+        indicator_time = #{indicatorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null">
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indicatorTextData != null">
+        indicator_text_data = #{indicatorTextData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText">
+    update investnew_index_indicator_text
+    set indicator_id = #{indicatorId,jdbcType=BIGINT},
+      indicator_time = #{indicatorTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      indicator_text_data = #{indicatorTextData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorText">
+    update investnew_index_indicator_text
+    set indicator_id = #{indicatorId,jdbcType=BIGINT},
+      indicator_time = #{indicatorTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByIndicatorId" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from
+    investnew_index_indicator_text
+    where
+    indicator_id = #{indicatorId}
+    limit 1
+  </select>
+</mapper>

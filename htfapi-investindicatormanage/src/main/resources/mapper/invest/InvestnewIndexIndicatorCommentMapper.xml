@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.InvestnewIndexIndicatorCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="object_id" property="objectId" jdbcType="BIGINT" />
+    <result column="p_object_id" property="pObjectId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, object_id, p_object_id, type, user_id, creator, editor, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_index_indicator_comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_index_indicator_comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_comment (pid, object_id, p_object_id,
+      type, user_id, creator,
+      editor, create_time, update_time,
+      content)
+    values (#{pid,jdbcType=BIGINT}, #{objectId,jdbcType=BIGINT}, #{pObjectId,jdbcType=BIGINT},
+      #{type,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR},
+      #{editor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="objectId != null" >
+        object_id,
+      </if>
+      <if test="pObjectId != null" >
+        p_object_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="editor != null" >
+        editor,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=BIGINT},
+      </if>
+      <if test="pObjectId != null" >
+        #{pObjectId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" >
+    update investnew_index_indicator_comment
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="objectId != null" >
+        object_id = #{objectId,jdbcType=BIGINT},
+      </if>
+      <if test="pObjectId != null" >
+        p_object_id = #{pObjectId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" >
+    update investnew_index_indicator_comment
+    set pid = #{pid,jdbcType=BIGINT},
+      object_id = #{objectId,jdbcType=BIGINT},
+      p_object_id = #{pObjectId,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorComment" >
+    update investnew_index_indicator_comment
+    set pid = #{pid,jdbcType=BIGINT},
+      object_id = #{objectId,jdbcType=BIGINT},
+      p_object_id = #{pObjectId,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectCountByObjectIdAndTypeAndPid" resultType="int">
+    select
+      count(*)
+    from
+      investnew_index_indicator_comment
+    where
+      pid = #{pid}
+    and object_id = #{objectId}
+    and type = #{type}
+  </select>
+
+  <select id="selectLastComment" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_index_indicator_comment
+    where
+    p_object_id = #{indicatorId}
+    and type = 1
+    order by update_time desc limit 1
+  </select>
+
+  <select id="selectSpecialIndicatorComment" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from investnew_index_indicator_comment
+    where
+    object_id = #{indicatorId}
+    and type = 2
+    limit 1
+  </select>
+</mapper>

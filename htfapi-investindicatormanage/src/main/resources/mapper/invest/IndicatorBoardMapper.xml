@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.IndicatorBoardMapper">
+
+    <select id="selectManageIndicator"
+            resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+        select
+        t1.id indicatorId,
+        t1.indicator_name indicatorName
+        from
+        investnew_index_indicator t1
+        inner join investnew_index_indicator_analyst t2 on t1.id = t2.indicator_id
+        where
+        t1.indicator_type in(2,4,5)
+        and t2.analyst_id = #{userId}
+        <if test="orderByUpdate">
+            order by t1.push_time desc
+        </if>
+        <if test="!orderByUpdate">
+            order by t1.comment_time desc
+        </if>
+        <if test="start >=0 and pageSize >0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectAttentionIndicator"
+            resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+        select
+        t1.id indicatorId,
+        t1.indicator_name indicatorName
+        from
+        investnew_index_indicator t1
+        inner join investnew_index_indicator_follow t2 on t1.id = t2.object_id
+        where
+        t1.indicator_type in(2,4,5)
+        and t2.user_id = #{userId}
+        and t2.type = 1
+        <if test="orderByUpdate">
+            order by t1.push_time desc
+        </if>
+        <if test="!orderByUpdate">
+            order by t1.comment_time desc
+        </if>
+        <if test="start >=0 and pageSize >0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectAllIndicator"
+            resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+        select
+        t1.id indicatorId,
+        t1.indicator_name indicatorName
+        from
+        investnew_index_indicator t1
+        where
+        t1.indicator_type in(2,4,5)
+        <if test="orderByUpdate">
+            order by t1.push_time desc
+        </if>
+        <if test="!orderByUpdate">
+            order by t1.comment_time desc
+        </if>
+        <if test="start >=0 and pageSize >0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectIndustryIndicator"
+            resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+        select
+        t1.id indicatorId,
+        t1.indicator_name indicatorName
+        from
+        investnew_index_indicator t1
+        inner join investnew_index_indicator_industry t2 on t1.id = t2.indicator_id
+        where
+        t1.indicator_type in(2,4,5)
+        and t2.second_industry_name = #{secondIndustryName}
+        <if test="orderByUpdate">
+            order by t1.push_time desc
+        </if>
+        <if test="!orderByUpdate">
+            order by t1.comment_time desc
+        </if>
+        <if test="start >=0 and pageSize >0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectKeyWordIndicator"
+            resultType="com.htf.bigdata.invest.indicatormanage.model.response.dto.IndicatorSummaryDto">
+        select
+        t1.id indicatorId,
+        t1.indicator_name indicatorName
+        from
+        investnew_index_indicator t1
+        left join investnew_index_indicator_stock t2 on t1.id = t2.indicator_id
+        left join investnew_index_indicator_analyst t3 on t1.id = t3.indicator_id
+        <where>
+            t1.indicator_type in(2,4,5)
+            <if test="keyWord != null and keyWord != ''">
+                and (t1.indicator_name like "%"#{keyWord}"%"
+                or t2.stock_name like "%"#{keyWord}"%"
+                or t3.analyst_name like "%"#{keyWord}"%")
+            </if>
+        </where>
+        group by t1.id,t1.indicator_name
+        <if test="orderByUpdate">
+            order by t1.push_time desc
+        </if>
+        <if test="!orderByUpdate">
+            order by t1.comment_time desc
+        </if>
+        <if test="start >=0 and pageSize >0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectAttentionIds" resultType="long">
+        select
+        t1.id indicatorId
+        from
+        investnew_index_indicator t1
+        inner join investnew_index_indicator_follow t2 on t1.id = t2.object_id
+        left join investnew_index_indicator_stock t3 on t1.id = t3.indicator_id
+        left join investnew_index_indicator_industry t4 on t1.id = t4.indicator_id
+        <where>
+            t1.indicator_type in(2,4,5)
+            and t2.user_id = #{userId}
+            and t2.type = 1
+            <if test="firstIndustryName != null and firstIndustryName != ''">
+                and t4.first_industry_name = #{firstIndustryName}
+            </if>
+            <if test="keyWord != null and keyWord != ''">
+                and (t1.indicator_name like "%"#{keyWord}"%"
+                or t3.stock_name like "%"#{keyWord}"%"
+                or t4.second_industry_name like "%"#{keyWord}"%")
+            </if>
+        </where>
+        group by t1.id
+    </select>
+
+    <select id="selectAllIndicatorIds" resultType="long">
+        select
+        t1.id indicatorId
+        from
+        investnew_index_indicator t1
+        left join investnew_index_indicator_stock t2 on t1.id = t2.indicator_id
+        left join investnew_index_indicator_industry t3 on t1.id = t3.indicator_id
+        <where>
+            t1.indicator_type in(2,4,5)
+            <if test="firstIndustryName != null and firstIndustryName != ''">
+                and t3.first_industry_name = #{firstIndustryName}
+            </if>
+            <if test="keyWord != null and keyWord != ''">
+                and (t1.indicator_name like "%"#{keyWord}"%"
+                or t2.stock_name like "%"#{keyWord}"%"
+                or t3.second_industry_name like "%"#{keyWord}"%")
+            </if>
+        </where>
+        group by t1.id
+        <if test="start >=0 and pageSize >0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+</mapper>

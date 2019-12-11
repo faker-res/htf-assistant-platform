@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.platform.dao.invest.IInvestnewUserRoleDao">
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    <constructor>
+      <idArg column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="role_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    delete from investnew_user_role
+    where user_id = #{user_id,jdbcType=VARCHAR}
+      and role_id = #{role_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    insert into investnew_user_role (user_id, role_id)
+    values (#{user_id,jdbcType=VARCHAR}, #{role_id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    insert into investnew_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="role_id != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        #{role_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertMulti" parameterType="list" >
+    insert ignore into investnew_user_role
+    (user_id, role_id)
+    values
+    <foreach collection="records" item="item" index="index"
+             open="" separator="," close="">
+      (#{item.user_id,jdbcType=VARCHAR}, #{item.role_id,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertIgnore" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    insert ignore into investnew_user_role (user_id, role_id)
+    values (#{user_id,jdbcType=VARCHAR}, #{role_id,jdbcType=INTEGER})
+  </insert>
+  <select id="getRoleIdsByUserId" resultType="integer">
+    select role_id
+    from investnew_user_role
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+    <select id="selectByUserIds" resultMap="BaseResultMap">
+    select user_id, role_id
+    from investnew_user_role
+    where user_id in
+    <foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=VARCHAR}
+    </foreach>
+  </select>
+  <delete id="deleteByUserId" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    delete from investnew_user_role
+    where user_id = #{user_id,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByRoleId" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewUserRoleKey">
+    delete from investnew_user_role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+</mapper>

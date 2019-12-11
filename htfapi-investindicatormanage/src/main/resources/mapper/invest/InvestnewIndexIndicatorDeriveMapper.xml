@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htf.bigdata.invest.indicatormanage.dao.invest.InvestnewIndexIndicatorDeriveMapper" >
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorDerive" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="indicator_id" property="indicatorId" jdbcType="BIGINT" />
+    <result column="derive_indicator_type" property="deriveIndicatorType" jdbcType="INTEGER" />
+    <result column="derive_indicator_id" property="deriveIndicatorId" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="editor" property="editor" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, indicator_id, derive_indicator_type, derive_indicator_id, creator, editor, create_time,
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from investnew_index_indicator_derive
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from investnew_index_indicator_derive
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorDerive" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_derive (indicator_id, derive_indicator_type,
+    derive_indicator_id, creator, editor,
+    create_time, update_time)
+    values (#{indicatorId,jdbcType=BIGINT}, #{deriveIndicatorType,jdbcType=INTEGER},
+    #{deriveIndicatorId,jdbcType=BIGINT}, #{creator,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorDerive" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into investnew_index_indicator_derive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indicatorId != null" >
+        indicator_id,
+      </if>
+      <if test="deriveIndicatorType != null" >
+        derive_indicator_type,
+      </if>
+      <if test="deriveIndicatorId != null" >
+        derive_indicator_id,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="editor != null" >
+        editor,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indicatorId != null" >
+        #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="deriveIndicatorType != null" >
+        #{deriveIndicatorType,jdbcType=INTEGER},
+      </if>
+      <if test="deriveIndicatorId != null" >
+        #{deriveIndicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorDerive" >
+    update investnew_index_indicator_derive
+    <set >
+      <if test="indicatorId != null" >
+        indicator_id = #{indicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="deriveIndicatorType != null" >
+        derive_indicator_type = #{deriveIndicatorType,jdbcType=INTEGER},
+      </if>
+      <if test="deriveIndicatorId != null" >
+        derive_indicator_id = #{deriveIndicatorId,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null" >
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.indicatormanage.model.domain.InvestnewIndexIndicatorDerive" >
+    update investnew_index_indicator_derive
+    set indicator_id = #{indicatorId,jdbcType=BIGINT},
+      derive_indicator_type = #{deriveIndicatorType,jdbcType=INTEGER},
+      derive_indicator_id = #{deriveIndicatorId,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

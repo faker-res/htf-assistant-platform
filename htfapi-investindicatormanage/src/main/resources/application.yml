@@ -1,0 +1,86 @@
+server:
+  port: 8004
+
+spring:
+  application:
+    name: service-indicatormanage
+  profiles:
+    active: "@spring.profiles.active@"
+  devtools:
+    restart:
+      enabled: true
+      #poll-interval: 1
+      #quiet-period: 999
+
+eureka:
+  environment: ${spring.profiles.active}
+  instance:
+    instanceId: ${spring.cloud.client.ipAddress}:${server.port} #默认值是${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}
+    hostname: ${spring.cloud.client.ipAddress} #主机名，可以为${spring.cloud.client.ipAddress}，或可以为指定域名
+    preferIpAddress: true #用ip做hostname时，本项应设为true；用域名做hostname时，本项应设为false
+    leaseRenewalIntervalInSeconds: 5 #续约更新时间间隔（默认30秒）
+    leaseExpirationDurationInSeconds: 16 #续约到期时间（默认90秒）
+  client:
+    registerWithEureka: true #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true
+    fetchRegistry: true #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
+    registryFetchIntervalSeconds: 5 #间隔多久去拉取服务注册信息,默认为30秒
+    healthcheck:
+      enabled: true
+
+management:
+  security:
+    enabled: false #关闭验证
+
+endpoints:
+  shutdown:
+    enabled: true #开启微服务的优雅关闭
+    sensitive: false #禁用密码验证
+
+feign:
+  hystrix:
+    enabled: true
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mimeTypes: text/xml,text/plain,application/xml,application/json
+      minRequestSize: 2048
+    response:
+      enabled: true
+
+ribbon:
+  ConnectTimeout: 500 #ribbon请求连接的超时时间
+  ReadTimeout: 10000 #请求处理的超时时间
+  OkToRetryOnAllOperations: false #对所有操作请求都进行重试，无论是连接超时或者返回超时都进行重试，默认false只重试连接超时
+  MaxAutoRetries: 0 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 2 #重试负载均衡其他的实例最大重试次数,不包括首次server
+  ServerListRefreshInterval: 5000 #ribbon刷新实例列表时间间隔,默认为30秒
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000 #隔离策略的超时时间，默认值是1000
+
+logging:
+  config: classpath:log4j2.xml
+
+#引入mybatisplus兼容mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/invest/*.xml
+  type-aliases-package: com.htf.bigdata.invest.platform.model.invest
+  global-config:
+    #主键类型 0自增 1用户输入 2数字类型唯一id 3全局唯一uuid
+    id-type: 0
+    #字段策略 0忽略判断 1非null判断  2非空判断
+    field-strategy: 1
+    db-column-underline: true
+    refresh-mapper: true
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false

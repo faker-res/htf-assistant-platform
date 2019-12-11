@@ -1,0 +1,5 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.26.12.163:8001/eureka,http://172.26.12.164:8001/eureka

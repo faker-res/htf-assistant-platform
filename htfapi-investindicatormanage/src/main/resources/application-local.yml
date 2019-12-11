@@ -1,0 +1,47 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.50.16.124:8001/eureka
+    registerWithEureka: false
+
+spring:
+  datasource:
+    invest:
+      driverClassName: com.mysql.jdbc.Driver
+      username: htf_user_dev
+      password: Abc@Htf123456
+      url: jdbc:mysql://10.50.115.225:3306/assistant_platform_dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=PRC&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true
+      timeoutSeconds: 30
+      initSize: 5
+      minIdle: 1
+      maxActive: 30
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: select 1
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      minEvictableIdleTimeMillis: 300000
+      maxEvictableIdleTimeMillis: 1200000
+      keepAlive: true
+  redis:
+    pool:
+      max-idle: 8
+      max-active: 8
+      max-wait: 1000
+    host: 10.50.115.225
+    port: 6379
+    password:
+    database: 0
+    timeout: 1000
+
+feign:
+  client:
+    platform:
+      name: service-assistant-platform
+      url: http://10.50.16.124:8003
+
+async:
+  corePoolSize: 5
+  maxPoolSize: 10
+  queueCapacity: 5

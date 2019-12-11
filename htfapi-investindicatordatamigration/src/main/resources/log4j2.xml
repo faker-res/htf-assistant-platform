@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <Filters>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="ERROR_FILE" fileName="${log4j2.appenders.path}/error.log" filePattern="${log4j2.appenders.path}/$${date:yyyy-MM}/log4j2-%d{yyyy-MM-dd}-%i.error.gz">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="128MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+        <RollingFile name="SQL_FILE" fileName="${log4j2.appenders.path}/sql.log" filePattern="${log4j2.appenders.path}/$${date:yyyy-MM}/log4j2-%d{yyyy-MM-dd}-%i.sql.gz">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="128MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+        <RollingFile name="ROLLING_FILE" fileName="${log4j2.appenders.path}/log4j2.log" filePattern="${log4j2.appenders.path}/$${date:yyyy-MM}/log4j2-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="128MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+        <RollingFile name="DEBUG_FILE" fileName="${log4j2.appenders.path}/debug.log" filePattern="${log4j2.appenders.path}/$${date:yyyy-MM}/log4j2-%d{yyyy-MM-dd}-%i.debug.gz">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} %logger{0} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="128MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <AsyncRoot level="info">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="ROLLING_FILE"/>
+        </AsyncRoot>
+        <AsyncLogger name="org" level="error" additivity="true" includeLocation="true">
+            <AppenderRef ref="ERROR_FILE"/>
+        </AsyncLogger>
+        <AsyncLogger name="com" level="error" additivity="true" includeLocation="true">
+            <AppenderRef ref="ERROR_FILE"/>
+        </AsyncLogger>
+        <AsyncLogger name="la.niub" level="info" additivity="false" includeLocation="true">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="ROLLING_FILE"/>
+        </AsyncLogger>
+        <AsyncLogger name="la.niub.abcapi.invest.indicatordatamigration.component.interceptor.MethodInterceptor" level="debug" additivity="false" includeLocation="true">
+            <AppenderRef ref="DEBUG_FILE"/>
+        </AsyncLogger>
+        <AsyncLogger name="la.niub.abcapi.invest.indicatordatamigration.dao" level="debug" additivity="false" includeLocation="true">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="SQL_FILE"/>
+        </AsyncLogger>
+    </Loggers>
+</Configuration>

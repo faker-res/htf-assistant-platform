@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htf.bigdata.invest.platform.dao.invest.IInvestnewAnalystDao">
+  <resultMap id="BaseResultMap" type="com.htf.bigdata.invest.platform.model.invest.InvestnewAnalystModel">
+    <constructor>
+      <idArg column="peo_uni_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="analyst_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="org_uni_code" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="org_sname" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    peo_uni_code, name, analyst_code, org_uni_code, org_sname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from investnew_analyst
+    where peo_uni_code = #{peo_uni_code,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from investnew_analyst
+    where peo_uni_code = #{peo_uni_code,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewAnalystModel">
+    insert into investnew_analyst (peo_uni_code, name, analyst_code, 
+      org_uni_code, org_sname)
+    values (#{peo_uni_code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{analyst_code,jdbcType=VARCHAR}, 
+      #{org_uni_code,jdbcType=BIGINT}, #{org_sname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewAnalystModel">
+    insert into investnew_analyst
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="peo_uni_code != null">
+        peo_uni_code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="analyst_code != null">
+        analyst_code,
+      </if>
+      <if test="org_uni_code != null">
+        org_uni_code,
+      </if>
+      <if test="org_sname != null">
+        org_sname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="peo_uni_code != null">
+        #{peo_uni_code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst_code != null">
+        #{analyst_code,jdbcType=VARCHAR},
+      </if>
+      <if test="org_uni_code != null">
+        #{org_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="org_sname != null">
+        #{org_sname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewAnalystModel">
+    update investnew_analyst
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="analyst_code != null">
+        analyst_code = #{analyst_code,jdbcType=VARCHAR},
+      </if>
+      <if test="org_uni_code != null">
+        org_uni_code = #{org_uni_code,jdbcType=BIGINT},
+      </if>
+      <if test="org_sname != null">
+        org_sname = #{org_sname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where peo_uni_code = #{peo_uni_code,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htf.bigdata.invest.platform.model.invest.InvestnewAnalystModel">
+    update investnew_analyst
+    set name = #{name,jdbcType=VARCHAR},
+      analyst_code = #{analyst_code,jdbcType=VARCHAR},
+      org_uni_code = #{org_uni_code,jdbcType=BIGINT},
+      org_sname = #{org_sname,jdbcType=VARCHAR}
+    where peo_uni_code = #{peo_uni_code,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from investnew_analyst
+    where name = #{analystName,jdbcType=VARCHAR}
+  </select>
+</mapper>

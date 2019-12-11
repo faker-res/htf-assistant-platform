@@ -1,0 +1,15 @@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.50.16.124:8001/eureka
+
+security:
+  cas:
+    service:
+      host: http://10.50.16.124
+      logout: ${security.cas.service.host}/j_spring_cas_security_logout
+    server:
+      host: http://sso.htffund.com.cn:8008/cas
+      login: ${security.cas.server.host}/login
+      logout: ${security.cas.server.host}/logout?service=${security.cas.service.host}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="la.niub.abcapi.invest.indicatordatamigration.dao.wdb.DimStockMapper" >
+  <resultMap id="BaseResultMap" type="la.niub.abcapi.invest.indicatordatamigration.model.wdb.DimStock" >
+    <result column="stockcode" property="stockcode" jdbcType="VARCHAR" />
+    <result column="stockname" property="stockname" jdbcType="VARCHAR" />
+    <result column="market" property="market" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    stockcode, stockname, market
+  </sql>
+  
+  <select id="queryStock" resultType="la.niub.abcapi.invest.indicatordatamigration.model.wdb.DimStock">
+    select 
+    <include refid="Base_Column_List" />
+    from dim_stock
+  </select>
+  
+</mapper>       
